@@ -18,23 +18,18 @@ class Ticket
         private string $updatedAt,
         private string $tags
     ) {}
-    public function toArray(): array
-    {
-        return [
-            'Ticket ID' => $this->id,
-            'Description' => $this->description,
-            'Status' => $this->status,
-            'Priority' => $this->priority,
-            'Assignee ID' => $this->assigneeId,
-            'Requester ID' => $this->requesterId,
-            'Submitter ID' => $this->submitterId,
-            'Organization ID' => $this->organizationId ?? 'N/A',
-            'Group ID' => $this->groupId ?? 'N/A',
-            'Created At' => $this->createdAt,
-            'Updated At' => $this->updatedAt,
-            'Tags' => $this->tags,
-        ];
-    }
+    public function getId(): int { return $this->id; }
+    public function getDescription(): string { return $this->description; }
+    public function getStatus(): string { return $this->status; }
+    public function getPriority(): string { return $this->priority; }
+    public function getAssigneeId(): int { return $this->assigneeId; }
+    public function getRequesterId(): int { return $this->requesterId; }
+    public function getSubmitterId(): int { return $this->submitterId; }
+    public function getOrganizationId(): ?int { return $this->organizationId; }
+    public function getGroupId(): ?int { return $this->groupId; }
+    public function getCreatedAt(): string { return $this->createdAt; }
+    public function getUpdatedAt(): string { return $this->updatedAt; }
+    public function getTags(): string { return $this->tags; }
 }
 
 
