@@ -1,0 +1,29 @@
+"Ticket ID",Description,Status,Priority,"Assignee ID","Requester ID","Submitter ID","Organization ID","Group ID","Created At","Updated At",Tags
+1,"Hi there,
+
+I’m sending an email because I’m having a problem setting up your new product. Can you help me troubleshoot?
+
+Thanks,
+ The Customer
+
+",open,normal,25588273884178,25588322497810,25588273884178,N/A,25588338926866,2025-03-26T08:29:40Z,2025-03-26T08:29:40Z,"sample, support, zendesk"
+2,"Hi, I’m interested in some of your products, but want to know if your materials are sustainably and ethically sourced before purchasing.",open,low,25588273884178,25588437402258,25588437402258,N/A,25588338926866,2025-03-26T08:32:41Z,2025-03-26T08:32:41Z,"other, sample_ticket"
+3,"Hi there! Looks like I jumped the gun and, uh-oh, put the wrong delivery address on my order. I need to fix this fast but I’m not sure how to go about it.
+Can you help me change the delivery address for my order? Or can I do it on the website? Also, is there a deadline for when I can make this change?
+
+Thanks for your help!
+
+Ingrid Van Dijk",open,normal,25588273884178,25588437432850,25588437432850,N/A,25588338926866,2025-03-26T08:32:41Z,2025-03-26T08:32:41Z,"change_address, delivery, sample_ticket"
+4,"Hello, I’ve got some cool items in my cart on your site, but before I take the plunge, I want to understand how much I’ll be paying for shipping. The numbers can be a bit scary when you don’t know what they’re for.
+
+Can you help me understand what all influences the shipping costs? Is there a calculator or formula I can use first?",open,normal,25588273884178,25588437402258,25588437402258,N/A,25588338926866,2025-03-26T08:32:42Z,2025-03-26T08:32:42Z,"delivery, sample_ticket"
+5,"Hey there, I’ve been browsing your site and I keep seeing this term ""Flat Pack Delivery"".
+
+I’m not sure what this really means. Does it shorten my waiting time for delivery or does it just make the package smaller?
+
+And once the flat packed item arrives, does this mean I have to put it together?
+
+Your help in clarifying this would be much appreciated!
+
+Thanks,
+Soobin Do",open,normal,25588273884178,25588411556242,25588411556242,N/A,25588338926866,2025-03-26T08:32:42Z,2025-03-26T08:32:42Z,"delivery, sample_ticket"

@@ -24,6 +24,8 @@ class CsvConvertor
     public function export(string $filename, array $tickets): void
     {
         $file = fopen($filename, 'w');
+
+
         fputcsv($file, ['Ticket ID', 'Description', 'Status', 'Priority', 'Assignee ID', 'Requester ID', 'Submitter ID', 'Organization ID', 'Group ID', 'Created At', 'Updated At', 'Tags']);
 
         foreach ($tickets as $ticket) {
