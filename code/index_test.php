@@ -1,5 +1,7 @@
 <?php
 
+include __DIR__ . '/vendor/autoload.php';
+
 use API\CsvConvertor;
 use API\TicketFetch;
 

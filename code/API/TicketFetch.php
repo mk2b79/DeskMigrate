@@ -37,21 +37,44 @@ class TicketFetch
         $tickets = [];
 
         foreach ($data['tickets'] as $ticketData) {
-            $tickets[] = new Ticket(
-                $ticketData['id'],
-                $ticketData['description'] ?? '',
-                $ticketData['status'],
-                $ticketData['priority'] ?? 'N/A',
-                $ticketData['assignee_id'] ?? 0,
-                $ticketData['requester_id'] ?? 0,
-                $ticketData['submitter_id'] ?? 0,
-                $ticketData['organization_id'] ?? null,
-                $ticketData['group_id'] ?? null,
-                $ticketData['created_at'],
-                $ticketData['updated_at'],
-                implode(', ', $ticketData['tags'] ?? [])
-            );
+          $ticket = new Ticket(
+              $ticketData["id"],
+              $ticketData["description"],
+              $ticketData["status"],
+              $ticketData["priority"],
+              $this->fetchUser($ticketData["assignee_id"]),
+              $this->fetchUser($ticketData["requester_id"]),
+              $ticketData["group_id"] ?? null,
+              $this->fetchGroupsName($ticketData["group_id"]) ?? 'N/A',
+              $ticketData["organization_id"] ?? null,
+              $this->fetchGroupsName($ticketData["organization_id"]) ?? 'N/A',
+              $this->fetchComments($ticketData["id"]) ?? 'N/A',
+          );
         }
         return $tickets;
     }
+
+    private function fetchUser(int $id):User
+    {
+        $response = $this->client->request('GET',"$this->url/users/$id.json");
+
+        $userData = json_decode($response->getBody()->getContents(), true)["user"];
+
+        $user = new User(
+            $id,
+            $userData["email"],
+            $userData["name"]
+        );
+        return $user;
+    }
+    private function fetchGroupsName(int $id):string{
+        $response = $this->client->request('GET',"$this->url/groups/$id.json");
+        $data = json_decode($response->getBody()->getContents(), true)["group"];
+        return $data["name"];
+    }
+    private function fetchComments(int $id):string{
+        $response = $this->client->request('GET',"$this->url/tickets/{$id}/comments.json");
+        return json_decode($response->getBody()->getContents(), true)["comments"]["body"];
+    }
+
 }

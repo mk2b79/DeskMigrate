@@ -11,24 +11,27 @@ class CsvConvertor
             'Description' => $ticket->getDescription(),
             'Status' => $ticket->getStatus(),
             'Priority' => $ticket->getPriority(),
-            'Assignee ID' => $ticket->getAssigneeId(),
-            'Requester ID' => $ticket->getRequesterId(),
-            'Submitter ID' => $ticket->getSubmitterId(),
-            'Organization ID' => $ticket->getOrganizationId() ?? 'N/A',
-            'Group ID' => $ticket->getGroupId() ?? 'N/A',
-            'Created At' => $ticket->getCreatedAt(),
-            'Updated At' => $ticket->getUpdatedAt(),
-            'Tags' => $ticket->getTags(),
+            'Agent ID' => $ticket->getAgentId(),
+            'Agent Name' => $ticket->getAgentName(),
+            'Agent Email' => $ticket->getAgentEmail(),
+            'Contact ID' => $ticket->getContactId(),
+            'Contact Name' => $ticket->getContactName(),
+            'Contact Email' => $ticket->getContactEmail(),
+            'Group ID'=> $ticket->getGroupId(),
+            'Group Name' => $ticket->getGroupName(),
+            'Company ID'=> $ticket->getCompanyId(),
+            'Company Name' => $ticket->getCompanyName(),
+            'Comments'=>$ticket->getComments()
         ];
     }
     public function export(string $filename, array $tickets): void
     {
         $file = fopen($filename, 'w');
 
-
-        fputcsv($file, ['Ticket ID', 'Description', 'Status', 'Priority', 'Assignee ID', 'Requester ID', 'Submitter ID', 'Organization ID', 'Group ID', 'Created At', 'Updated At', 'Tags']);
+        fputcsv($file, ['Ticket ID', 'Description', 'Status', 'Priority', 'Agent ID', 'Agent Name', 'Agent Email', 'Contact ID', 'Contact Name', 'Contact Email', 'Group ID', 'Group Name', 'Company ID', 'Company Name', 'Comments']);
 
         foreach ($tickets as $ticket) {
+            $ticket->
             fputcsv($file, $this->toArray($ticket));
         }
         fclose($file);

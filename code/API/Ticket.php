@@ -9,27 +9,46 @@ class Ticket
         private string $description,
         private string $status,
         private string $priority,
-        private int $assigneeId,
-        private int $requesterId,
-        private int $submitterId,
-        private ?int $organizationId,
+//        private int $agentId,
+//        private  string $agentName,
+//        private string $agentEmail,
+        private User $agent,
+//        private int $contactId,
+//        private  string $contactName,
+//        private string $contactEmail,
+        private User $contact,
         private ?int $groupId,
-        private string $createdAt,
-        private string $updatedAt,
-        private string $tags
-    ) {}
+        private ?string $groupName,
+        private ?int $companyId,
+        private ?string $companyName,
+        private ?string $comments
+
+    ) {
+        $this->agent = $agent;
+        $this->agent = $agent;
+    }
     public function getId(): int { return $this->id; }
     public function getDescription(): string { return $this->description; }
     public function getStatus(): string { return $this->status; }
     public function getPriority(): string { return $this->priority; }
-    public function getAssigneeId(): int { return $this->assigneeId; }
-    public function getRequesterId(): int { return $this->requesterId; }
-    public function getSubmitterId(): int { return $this->submitterId; }
-    public function getOrganizationId(): ?int { return $this->organizationId; }
-    public function getGroupId(): ?int { return $this->groupId; }
-    public function getCreatedAt(): string { return $this->createdAt; }
-    public function getUpdatedAt(): string { return $this->updatedAt; }
-    public function getTags(): string { return $this->tags; }
+    public function getAgentId(): int { return $this->agent->getId(); }
+    public function getAgentName(): string { return $this->agent->getName(); }
+    public function getAgentEmail(): string { return $this->agent->getEmail(); }
+    public function getContactId(): int { return $this->contact->getId(); }
+    public function getContactName(): string { return $this->contact->getName(); }
+    public function getContactEmail(): string { return $this->contact->getEmail(); }
+    public function getGroupId(): int { return $this->groupId; }
+    public function getGroupName(): string { return $this->groupName; }
+    public function getCompanyId(): int { return $this->companyId; }
+    public function getCompanyName(): string { return $this->companyName; }
+    public function getComments(): string { return $this->companyName; }
+    public function setAgent(User $user): void{
+        $this->agent = $user;
+    }
+    public function setContact(User $user): void{
+        $this->contact = $user;
+    }
+
 }
 
 
