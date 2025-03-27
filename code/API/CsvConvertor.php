@@ -31,7 +31,6 @@ class CsvConvertor
         fputcsv($file, ['Ticket ID', 'Description', 'Status', 'Priority', 'Agent ID', 'Agent Name', 'Agent Email', 'Contact ID', 'Contact Name', 'Contact Email', 'Group ID', 'Group Name', 'Company ID', 'Company Name', 'Comments']);
 
         foreach ($tickets as $ticket) {
-            $ticket->
             fputcsv($file, $this->toArray($ticket));
         }
         fclose($file);

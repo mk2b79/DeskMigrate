@@ -44,13 +44,18 @@ class TicketFetch
               $ticketData["priority"],
               $this->fetchUser($ticketData["assignee_id"]),
               $this->fetchUser($ticketData["requester_id"]),
-              $ticketData["group_id"] ?? null,
+              $ticketData["group_id"] ?? 0,
               $this->fetchGroupsName($ticketData["group_id"]) ?? 'N/A',
-              $ticketData["organization_id"] ?? null,
-              $this->fetchGroupsName($ticketData["organization_id"]) ?? 'N/A',
-              $this->fetchComments($ticketData["id"]) ?? 'N/A',
+              $ticketData["organization_id"] ?? 0,
+              $this->fetchGroupsName($ticketData["organization_id"] ?? null) ?? 'N/A',
+//              $this->fetchComments($ticketData["id"]) ?? 'N/A',
+                "N/A"
           );
+          $tickets[] = $ticket;
         }
+
+
+
         return $tickets;
     }
 
@@ -67,14 +72,18 @@ class TicketFetch
         );
         return $user;
     }
-    private function fetchGroupsName(int $id):string{
-        $response = $this->client->request('GET',"$this->url/groups/$id.json");
-        $data = json_decode($response->getBody()->getContents(), true)["group"];
-        return $data["name"];
+    private function fetchGroupsName($id):string{
+        if($id!=null){
+            $response = $this->client->request('GET',"$this->url/groups/$id.json");
+            $data = json_decode($response->getBody()->getContents(), true)["group"];
+            return $data["name"];
+        }
+       return "N/A";
     }
     private function fetchComments(int $id):string{
         $response = $this->client->request('GET',"$this->url/tickets/{$id}/comments.json");
-        return json_decode($response->getBody()->getContents(), true)["comments"]["body"];
+        $data = json_decode($response->getBody()->getContents(), true)["comments"];
+        return $data["id"];
     }
 
 }
