@@ -1,8 +1,8 @@
 <?php
 
-namespace API;
+namespace API\Model\Zendesk\Models;
 
-class User
+class UserZd
 {
     function __construct(
         private int $id,

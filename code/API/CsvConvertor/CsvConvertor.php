@@ -1,13 +1,15 @@
 <?php
 
-namespace API;
+namespace API\CsvConvertor;
+
+use API\Model\Zendesk\Models\TicketZd;
 
 class CsvConvertor
 {
-    private function toArray(Ticket $ticket): array
+    private function toArray(TicketZd $ticket): array
     {
         return [
-            'Ticket ID' => $ticket->getId(),
+            'TicketZd ID' => $ticket->getId(),
             'Description' => $ticket->getDescription(),
             'Status' => $ticket->getStatus(),
             'Priority' => $ticket->getPriority(),
@@ -28,7 +30,7 @@ class CsvConvertor
     {
         $file = fopen($filename, 'w');
 
-        fputcsv($file, ['Ticket ID', 'Description', 'Status', 'Priority', 'Agent ID', 'Agent Name', 'Agent Email', 'Contact ID', 'Contact Name', 'Contact Email', 'Group ID', 'Group Name', 'Company ID', 'Company Name', 'Comments']);
+        fputcsv($file, ['TicketZd ID', 'Description', 'Status', 'Priority', 'Agent ID', 'Agent Name', 'Agent Email', 'Contact ID', 'Contact Name', 'Contact Email', 'Group ID', 'Group Name', 'Company ID', 'Company Name', 'Comments']);
 
         foreach ($tickets as $ticket) {
             fputcsv($file, $this->toArray($ticket));

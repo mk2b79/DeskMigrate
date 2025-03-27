@@ -2,9 +2,8 @@
 
 include __DIR__ . '/vendor/autoload.php';
 
-use API\CsvConvertor;
-use API\TicketFetch;
-
+use API\CsvConvertor\CsvConvertor;
+use API\Services\Zendesk\TicketFetch;
 
 
 $url="https://relokia2482.zendesk.com/api/v2";

@@ -1,9 +1,11 @@
 <?php
 
-namespace API;
+namespace API\Services\Zendesk;
 
 
 
+use API\Model\Zendesk\Models\TicketZd;
+use API\Model\Zendesk\Models\UserZd;
 use GuzzleHttp\Client;
 
 class TicketFetch
@@ -37,7 +39,7 @@ class TicketFetch
         $tickets = [];
 
         foreach ($data['tickets'] as $ticketData) {
-          $ticket = new Ticket(
+          $ticket = new TicketZd(
               $ticketData["id"],
               $ticketData["description"],
               $ticketData["status"],
@@ -45,45 +47,53 @@ class TicketFetch
               $this->fetchUser($ticketData["assignee_id"]),
               $this->fetchUser($ticketData["requester_id"]),
               $ticketData["group_id"] ?? 0,
-              $this->fetchGroupsName($ticketData["group_id"]) ?? 'N/A',
+              $ticketData["group_id"] != 0 ? $this->fetchGroupsName($ticketData["group_id"]) : 'N/A',
               $ticketData["organization_id"] ?? 0,
-              $this->fetchGroupsName($ticketData["organization_id"] ?? null) ?? 'N/A',
-//              $this->fetchComments($ticketData["id"]) ?? 'N/A',
-                "N/A"
+              $ticketData["organization_id"] != 0 ? $this->fetchCompanyName($ticketData["organization_id"]) : 'N/A',
+
+              $this->fetchComments($ticketData["id"]) ?? 'N/A',
           );
-          $tickets[] = $ticket;
+          $tickets[]=$ticket;
         }
-
-
-
         return $tickets;
     }
 
-    private function fetchUser(int $id):User
+    private function fetchUser(int $id):UserZd
     {
         $response = $this->client->request('GET',"$this->url/users/$id.json");
 
         $userData = json_decode($response->getBody()->getContents(), true)["user"];
 
-        $user = new User(
+        $user = new UserZd(
             $id,
             $userData["email"],
             $userData["name"]
         );
         return $user;
     }
-    private function fetchGroupsName($id):string{
-        if($id!=null){
-            $response = $this->client->request('GET',"$this->url/groups/$id.json");
-            $data = json_decode($response->getBody()->getContents(), true)["group"];
-            return $data["name"];
-        }
-       return "N/A";
+    private function fetchGroupsName(int $id):string{
+        $response = $this->client->request('GET',"$this->url/groups/$id.json");
+        $data = json_decode($response->getBody()->getContents(), true)["group"];
+        return $data["name"];
     }
+
+    private function fetchCompanyName(int $id):string{
+        $response = $this->client->request('GET',"$this->url/groups/$id.json");
+        $data = json_decode($response->getBody()->getContents(), true)["group"];
+        return $data["name"];
+    }
+
     private function fetchComments(int $id):string{
         $response = $this->client->request('GET',"$this->url/tickets/{$id}/comments.json");
-        $data = json_decode($response->getBody()->getContents(), true)["comments"];
-        return $data["id"];
+        $data=json_decode($response->getBody()->getContents(), true)["comments"];
+        $commentStr="";
+        if($data==null){
+            return "N/A";
+        }
+        foreach ($data as $commentData) {
+            $commentData=$commentData["body"];
+        }
+        return $commentStr;
     }
 
 }

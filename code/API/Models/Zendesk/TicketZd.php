@@ -1,26 +1,23 @@
 <?php
 
-namespace API;
+namespace API\Model\Zendesk\Models;
 
-class Ticket
+class TicketZd
 {
     public function __construct(
-        private int $id,
-        private string $description,
-        private string $status,
-        private string $priority,
-        private User $agent,
-        private User $contact,
-        private int $groupId,
+        private int     $id,
+        private string  $description,
+        private string  $status,
+        private string  $priority,
+        private UserZd  $agent,
+        private UserZd  $contact,
+        private ?int    $groupId,
         private ?string $groupName,
-        private ?int $companyId,
+        private ?int    $companyId,
         private ?string $companyName,
         private ?string $comments
 
-    ) {
-        $this->agent = $agent;
-        $this->agent = $agent;
-    }
+    ) {}
     public function getId(): int { return $this->id; }
     public function getDescription(): string { return $this->description; }
     public function getStatus(): string { return $this->status; }
@@ -35,14 +32,7 @@ class Ticket
     public function getGroupName(): string { return $this->groupName; }
     public function getCompanyId(): int { return $this->companyId; }
     public function getCompanyName(): string { return $this->companyName; }
-    public function getComments(): string { return $this->companyName; }
-    public function setAgent(User $user): void{
-        $this->agent = $user;
-    }
-    public function setContact(User $user): void{
-        $this->contact = $user;
-    }
-
+    public function getComments(): string { return $this->comments; }
 }
 
 
