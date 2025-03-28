@@ -5,16 +5,12 @@ namespace API\Models\Zendesk;
 class OrganizationZd
 {
     private int $id;
-    private string $createdAt;
-    private string $updatedAt;
     private string $name;
     private string $notes;
 
-    function __construct($id, $createdAt, $updatedAt, $name, $notes)
+    function __construct($id, $name, $notes)
     {
         $this->id = $id;
-        $this->createdAt = $createdAt;
-        $this->updatedAt = $updatedAt;
         $this->name = $name;
         $this->notes = $notes;
     }

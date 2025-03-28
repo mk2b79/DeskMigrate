@@ -13,18 +13,6 @@ class UsersZdServices
     {
         $this->client = $client;
     }
-
-//    public function __construct(
-//        private string $url,
-//        private string $email,
-//        private string $token
-//    ){
-//        $this->client = new Client([
-//            'base_uri' => $this->url,
-//            'auth' => ["$this->email/token", $this->token],
-//            'headers' => ['Content-Type' => 'application/json']
-//        ]);
-//    }
     public function getUser(int $id):UserZd
     {
         $response = $this->client->request('GET',"/api/v2/users/$id");
@@ -35,7 +23,8 @@ class UsersZdServices
             $id,
             $userData["email"],
             $userData["name"],
-            $userData["time_zone"]
+            $userData["time_zone"],
+            $userData["organization_id"]
         );
         return $user;
     }

@@ -13,18 +13,6 @@ class TicketFdServices
     {
         $this->client = $client;
     }
-//    public function __construct(
-//        private string $url,
-//        private string $email,
-//        private string $token
-//    ){
-//        $this->client = new Client([
-//            'base_uri' => $this->url,
-//            'auth' => ["$this->email/token", $this->token],
-//            'headers' => ['Content-Type' => 'application/json']
-//        ]);
-//    }
-
     public function getTickets():array
     {
         $userServices=new UsersZdServices($this->client);

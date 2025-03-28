@@ -3,6 +3,9 @@
 namespace API\Models\Zendesk;
 
 
+use API\Models\Freshdesk\AgentFd;
+use AutoMapper\Attribute\MapTo;
+
 class TicketZd
 {
     public function __construct(
@@ -10,10 +13,10 @@ class TicketZd
         private string  $description,
         private string  $status,
         private string  $priority,
-        private UserZd  $agent,
-        private UserZd  $contact,
-        private ?GroupZd  $group,
-        private ?OrganizationZd $organization,
+        private  $agent,
+        private  $contact,
+        private  $group,
+        private  $organization,
 //        private ?string $comments
 
     ) {}

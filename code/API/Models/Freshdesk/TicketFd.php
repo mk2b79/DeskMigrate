@@ -8,7 +8,9 @@ class TicketFd
     private string $description;
     private string $status;
     private string $priority;
-    private int $requesterId;
+    private ?int $responseId;
+    private string $responseEmail;
+    private ?int $requesterId;
     private string $requesterEmail;
 
 

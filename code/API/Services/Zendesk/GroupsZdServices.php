@@ -13,18 +13,6 @@ class GroupsZdServices
     {
         $this->client = $client;
     }
-//    public function __construct(
-//        private string $url,
-//        private string $email,
-//        private string $token
-//    ){
-//        $this->client = new Client([
-//            'base_uri' => $this->url,
-//            'auth' => ["$this->email/token", $this->token],
-//            'headers' => ['Content-Type' => 'application/json']
-//        ]);
-//    }
-
     public function getGroup($id):GroupZd{
         if($id == null){
             throw new \Exception("Id is null");
@@ -33,11 +21,8 @@ class GroupsZdServices
 
         $group =new GroupZd(
             $data["id"],
-            $data["created_at"],
-            $data["updated_at"],
             $data["description"] ?? "",
             $data["name"],
-
         );
         return $group;
     }
