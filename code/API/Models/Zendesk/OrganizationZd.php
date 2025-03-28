@@ -1,6 +1,6 @@
 <?php
 
-namespace API\Model\Zendesk\Models;
+namespace API\Models\Zendesk;
 
 class OrganizationZd
 {
@@ -10,8 +10,9 @@ class OrganizationZd
     private string $name;
     private string $notes;
 
-    function __construct($createdAt, $updatedAt, $name, $notes)
+    function __construct($id, $createdAt, $updatedAt, $name, $notes)
     {
+        $this->id = $id;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
         $this->name = $name;

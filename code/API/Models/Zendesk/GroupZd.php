@@ -1,6 +1,6 @@
 <?php
 
-namespace API\Model\Zendesk\Models;
+namespace API\Models\Zendesk;
 
 class GroupZd
 {
