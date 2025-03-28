@@ -1,6 +1,6 @@
 <?php
 
-namespace API\Model\Freshdesk\Models;
+namespace API\Models\Freshdesk;
 
 class AgentFd
 {
