@@ -11,10 +11,10 @@ class fAgentServices
     private Client $client;
     public function __construct(Client $client){ $this->client = $client; }
 
-    public function getOrCreateCompany(AgentFd $contact):AgentFd {
+    public function getOrCreateAgent(AgentFd $contact):AgentFd {
         $data=JsonDecode::decode($this->client->get("/api/agents?email={$contact->getEmail()}"));
         if(empty($data)){
-            return $this->createCompany($contact);
+            return $this->createAgent($contact);
         }
         $data=$data[0];
         return new AgentFd(
@@ -22,10 +22,10 @@ class fAgentServices
             $data["contact"]["name"],
             $data["contact"]["email"],
             $data["contact"]["time_zone"],
-            1
+            2
         );
     }
-    private function createCompany(AgentFd $contact):AgentFd
+    private function createAgent(AgentFd $contact):AgentFd
     {
         $responseData=JsonDecode::decode($this->client->post("/api/v2/agents",
             [

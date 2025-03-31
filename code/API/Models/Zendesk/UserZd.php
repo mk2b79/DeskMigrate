@@ -21,16 +21,14 @@ class UserZd
     #[MapTo(target:ContactFd::class,property: "companyId")]
 //    #[MapTo(target:AgentFd::class,property: "companyId")]
     private ?int $organizationId;
-    private ?int $role_type;
 
-    public function __construct(int $id, ?string $name, string $email, ?string $timeZone, ?int $organizationId, ?int $role_type)
+    public function __construct(int $id, ?string $name, string $email, ?string $timeZone, ?int $organizationId)
     {
         $this->id = $id;
         $this->name = $name;
         $this->email = $email;
         $this->timeZone = $timeZone;
         $this->organizationId = $organizationId;
-        $this->role_type = $role_type;
     }
 
 }

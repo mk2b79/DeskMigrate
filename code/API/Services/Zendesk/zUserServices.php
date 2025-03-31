@@ -25,7 +25,7 @@ class zUserServices
             $data["name"],
             $data["email"],
             $data["time_zone"],
-            $data["organization_id"]
+            $data["organization_id"],
         );
     }
 }

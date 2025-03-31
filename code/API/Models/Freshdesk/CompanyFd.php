@@ -7,7 +7,7 @@ class CompanyFd
     private ?int $id;
     private string $name;
 
-    function __construct($id, $name)
+    function __construct(?int $id, $name)
     {
         $this->id = $id;
         $this->name = $name;
@@ -16,7 +16,7 @@ class CompanyFd
     {
         return $this->name;
     }
-    public function getId(): int
+    public function getId():mixed
     {
         return $this->id;
     }

@@ -3,6 +3,7 @@
 namespace API\Services\Freshdesk;
 
 use API\Models\Freshdesk\CompanyFd;
+use API\Models\Freshdesk\ContactFd;
 use API\Utilities\JsonDecode;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
@@ -19,7 +20,20 @@ class fCompanyServices
         if($company === null){
             return null;
         }
+
         $data=JsonDecode::decode($this->client->get("/api/v2/companies/autocomplete?name={$company->getName()}"))["companies"];
+//        $data=JsonDecode::decode($this->client->get("/api/v2/companies"))["companies"];
+//        $data= array_column($data, null, 'name');
+//
+//        if(isset($data[$company->getName()])){
+//            $rawGroup = $data[$company->getName()];
+//            return new CompanyFd(
+//                $rawGroup["id"],
+//                $rawGroup["name"]
+//            );
+//        }
+//        return $this->createCompany($company);
+
         if(empty($data)){
             return $this->createCompany($company);
         }

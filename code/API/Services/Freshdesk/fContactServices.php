@@ -2,6 +2,7 @@
 
 namespace API\Services\Freshdesk;
 
+use API\Models\Freshdesk\CompanyFd;
 use API\Models\Freshdesk\ContactFd;
 use API\Utilities\JsonDecode;
 use GuzzleHttp\Client;
@@ -16,16 +17,16 @@ class fContactServices
      * @throws GuzzleException
      */
     public function getOrCreateCompany(ContactFd $contact):ContactFd {
-        $data=JsonDecode::decode($this->client->get("/api/v2//api/v2/contacts?email={$contact->getEmail()}"));
+        $data=JsonDecode::decode($this->client->get("/api/v2/contacts?email={$contact->getEmail()}"));
         if(empty($data)){
             return $this->createCompany($contact);
         }
         return new ContactFd(
-            $data["id"],
-            $data["name"],
-            $data["email"],
-            $data["time_zone"],
-            $data["company_id"]
+            $data[0]["id"],
+            $data[0]["name"],
+            $data[0]["email"],
+            $data[0]["time_zone"],
+            $data[0]["company_id"]
         );
     }
 
@@ -39,7 +40,6 @@ class fContactServices
                 "json"=>[
                     "name"=>$contact->getName(),
                     "email"=>$contact->getEmail(),
-                    "time_zone"=>$contact->getTimeZone(),
                     "company_id"=>$contact->getCompanyId()
                 ]
             ]

@@ -30,6 +30,7 @@ class zTicketsServices
             foreach($data['tickets'] as $rawTicket){
                 $tickets[] = new TicketZd(
                     $rawTicket["id"],
+                    $rawTicket["subject"],
                     $rawTicket["description"],
                     $rawTicket["status"],
                     $rawTicket["priority"],
