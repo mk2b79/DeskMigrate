@@ -2,20 +2,35 @@
 
 namespace API\Models\Zendesk;
 
+use API\Models\Freshdesk\AgentFd;
+use API\Models\Freshdesk\ContactFd;
+use AutoMapper\Attribute\Mapper;
+use AutoMapper\Attribute\MapTo;
+use AutoMapper\ConstructorStrategy;
+
+
+#[Mapper(target: ContactFd::class,constructorStrategy: ConstructorStrategy::NEVER)]
+#[Mapper(target: AgentFd::class,constructorStrategy: ConstructorStrategy::NEVER)]
+
 class UserZd
 {
-    function __construct(
-        private ?int $id,
-        private string $name,
-        private string $email,
-        private ?string $timeZone,
-        private ?int $companyId
-    )
-    {}
-    public function getId(): int { return $this->id; }
-    public function getName(): string { return $this->name; }
-    public function getEmail(): string { return $this->email; }
-    public function getTimeZone(): string { return $this->timeZone; }
+    private int $id;
+    private ?string $name;
+    private string $email;
+    private ?string $timeZone;
+    #[MapTo(target:ContactFd::class,property: "companyId")]
+//    #[MapTo(target:AgentFd::class,property: "companyId")]
+    private ?int $organizationId;
+    private ?int $role_type;
 
-    public function getCompanyId(): int{return $this->companyId;}
+    public function __construct(int $id, ?string $name, string $email, ?string $timeZone, ?int $organizationId, ?int $role_type)
+    {
+        $this->id = $id;
+        $this->name = $name;
+        $this->email = $email;
+        $this->timeZone = $timeZone;
+        $this->organizationId = $organizationId;
+        $this->role_type = $role_type;
+    }
+
 }

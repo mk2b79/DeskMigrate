@@ -2,8 +2,9 @@
 
 include __DIR__ . '/vendor/autoload.php';
 
-use API\CsvConvertor\CsvConvertor;
-use API\Services\Zendesk\TicketFdServices;
+
+use API\Models\Freshdesk\ContactFd;
+use API\Services\ZendeskOld\TicketFdServices;
 use GuzzleHttp\Client;
 
 $zenDeskUrl="https://relokia2482.zendesk.com";
@@ -24,13 +25,21 @@ $freshdeskClient = new Client([
     'headers' => ['Content-Type' => 'application/json']
 ]);
 
-$fetch=new TicketFdServices($zendeskClient);
-$ticket= $fetch->getTickets();
+//$fetch=new TicketFdServices($zendeskClient);
+//$ticket= $fetch->getTickets();
 
 //$migration=new \API\Services\ZendeskToFreshdeskMigrationServices($zendeskClient,$freshdeskClient);
 //
 //$migration->migrationTickets();
 //$migration->migrationGrop();
+
+$zdUser=new \API\Models\Zendesk\UserZd(null,"Maxim","smaks909@gmail.com","Ukraine",null,new \API\Models\Zendesk\OrganizationZd(1,"Test","Note"));
+
+$mapper=\AutoMapper\AutoMapper::create();
+
+$contact=$mapper->map($zdUser,ContactFd::class);
+
+print_r($contact);
 
 $test = '';
 

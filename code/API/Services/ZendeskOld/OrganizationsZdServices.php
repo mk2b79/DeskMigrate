@@ -1,6 +1,6 @@
 <?php
 
-namespace API\Services\Zendesk;
+namespace API\Services\ZendeskOld;
 
 use API\Models\Zendesk\OrganizationZd;
 use GuzzleHttp\Client;

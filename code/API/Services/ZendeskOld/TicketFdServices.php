@@ -1,6 +1,6 @@
 <?php
 
-namespace API\Services\Zendesk;
+namespace API\Services\ZendeskOld;
 
 use API\Models\Zendesk\TicketZd;
 use GuzzleHttp\Client;
@@ -33,7 +33,6 @@ class TicketFdServices
               $userServices->getUser($ticketData["requester_id"]),
               $ticketData["group_id"]!=null ? $groupServices->getGroup($ticketData["group_id"]) : null,
               $ticketData["organization_id"] !=null ? $organizationServices->getOrganization($ticketData["organization_id"]):null,
-
           );
           $tickets[]=$ticket;
         }

@@ -2,21 +2,19 @@
 
 namespace API\Models\Zendesk;
 
+use API\Models\Freshdesk\CompanyFd;
+use AutoMapper\Attribute\Mapper;
+use AutoMapper\ConstructorStrategy;
+
+#[Mapper(target: CompanyFd::class, constructorStrategy: ConstructorStrategy::NEVER)]
 class OrganizationZd
 {
     private int $id;
     private string $name;
-    private string $notes;
 
-    function __construct($id, $name, $notes)
-    {
+    public function __construct(int $id, string $name){
         $this->id = $id;
         $this->name = $name;
-        $this->notes = $notes;
     }
-    public function getId(): int{return $this->id;}
-    public function getCreatedAt(): string{return $this->createdAt;}
-    public function getUpdatedAt(): string{return $this->updatedAt;}
-    public function getName(): string{return $this->name;}
-    public function getNotes(): string{return $this->notes;}
+
 }

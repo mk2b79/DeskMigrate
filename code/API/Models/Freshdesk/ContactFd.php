@@ -1,24 +1,30 @@
 <?php
 
-namespace API\Models;
+namespace API\Models\Freshdesk;
 
 class ContactFd
 {
-    public function __construct(
-        private ?int $id,
-        private string $name,
-        private string $email,
-        private ?string $timeZone,
-        private ?string $companyId,
-    )
-    {}
+    protected ?int $id;
+    protected ?string $name;
+    protected string $email;
+    protected ?string $timeZone;
+    private ?int $companyId;
+
+    public function __construct($id, $name, $email, $timeZone, $companyId)
+    {
+        $this->id = $id;
+        $this->name = $name;
+        $this->email = $email;
+        $this->timeZone = $timeZone;
+        $this->companyId = $companyId;
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -33,9 +39,10 @@ class ContactFd
         return $this->timeZone;
     }
 
-    public function getCompanyId(): ?string
+    public function getCompanyId(): ?int
     {
         return $this->companyId;
     }
+
 
 }

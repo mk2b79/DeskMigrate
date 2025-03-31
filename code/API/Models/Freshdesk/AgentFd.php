@@ -2,27 +2,16 @@
 
 namespace API\Models\Freshdesk;
 
-use API\Models\ContactFd;
 
-class AgentFd
+class AgentFd extends ContactFd
 {
-    private int $id;
-    private ContactFd $contact;
-
-    function __construct($id,$contact)
-    {
-        $this->id = $id;
-        $this->contact = $contact;
+    private int $ticket_scoped;
+    public function __construct($id, $name, $email, $timeZone, $ticket_scoped){
+        parent::__construct($id, $name, $email, $timeZone,null);
+        $this->ticket_scoped = $ticket_scoped;
     }
-
-    public function getId(): int
+    public function getTicketScoped(): int
     {
-        return $this->id;
+        return $this->ticket_scoped;
     }
-
-    public function getContact(): ContactFd
-    {
-        return $this->contact;
-    }
-
 }
