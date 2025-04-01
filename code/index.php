@@ -17,6 +17,8 @@ $zClient = new Client($zendeskUrl, $email, $token);
 $ticketServices= new zTicketsServices($zClient);
 $tickets= $ticketServices->fetchTicketsInclude();
 
+$fTicket=$mapper->map($tickets[0],\API\Models\Freshdesk\TicketFd::class);
+
 
 
 //$freshdeskUrl="https://relokia-helpdesk.freshdesk.com";

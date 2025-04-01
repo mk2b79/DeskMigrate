@@ -43,7 +43,7 @@ class zTicketsServices
                     UserZd::fromArray($users[$rawTicket["requester_id"]]),
                     $rawTicket["group_id"] != null ? GroupZd::fromArray($groups[$rawTicket["group_id"]]) : null,
                     $rawTicket["organization_id"] != null ? OrganizationZd::fromArray($organizations[$rawTicket["organization_id"]]) : null,
-                    self::ticketFields($rawTicket['custom_fields']),
+                    $rawTicket['custom_fields']
                 );
             }
             $page++;

@@ -13,6 +13,8 @@ class TicketFd
     private ContactFd $contact;
     private ?GroupFd $group;
     private ?CompanyFd $company;
+    private array $fields;
+
     public function getId(): int
     {
         return $this->id;
@@ -92,6 +94,5 @@ class TicketFd
     {
         $this->subject = $subject;
     }
-
 
 }

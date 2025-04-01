@@ -4,9 +4,11 @@ namespace API\Models\Zendesk;
 
 
 use API\Models\Freshdesk\AgentFd;
+use API\Models\Freshdesk\FieldFd;
 use API\Models\Freshdesk\TicketFd;
 use AutoMapper\Attribute\Mapper;
 use AutoMapper\Attribute\MapTo;
+use AutoMapper\AutoMapper;
 use AutoMapper\ConstructorStrategy;
 
 
@@ -30,7 +32,12 @@ class TicketZd
     private ?GroupZd $group;
     #[MapTo(target:  TicketFd::class, property: "company")]
     private ?OrganizationZd $organization;
-    private array $customFields;
+    #[MapTo(target:  TicketFd::class,
+        property: "customFields")]
+    private string $customFields;
+
+    #[MapTo(target:  TicketFd::class, property: "fields")]
+    private array $fields;
 
     public function __construct(
         $id,
@@ -53,9 +60,8 @@ class TicketZd
         $this->contact = $contact;
         $this->group = $group;
         $this->organization = $organization;
-        $this->customFields =$customFields;
+        $this->fields = $customFields;
     }
-
     public static function statusMapCallback(string $value):int
     {
         $status=[
