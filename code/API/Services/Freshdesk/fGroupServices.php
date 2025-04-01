@@ -3,24 +3,19 @@
 namespace API\Services\Freshdesk;
 
 use API\Models\Freshdesk\GroupFd;
-use API\Utilities\JsonDecode;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
+use API\Utilities\Client;
+
 
 class fGroupServices
 {
     private Client $client;
     public function __construct(Client $client){ $this->client = $client; }
 
-
-    /**
-     * @throws GuzzleException
-     */
     public function getOrGroupCompany(?GroupFd $group):?GroupFd {
         if($group === null){
             return null;
         }
-        $data = JsonDecode::decode($this->client->get("/api/v2/groups"));
+        $data =$this->client->Request("GET","/api/v2/groups");
 
         $data= array_column($data, null, 'name');
 
@@ -40,14 +35,14 @@ class fGroupServices
      */
     private function createGroup(GroupFd $companyFd):GroupFd
     {
-        $responseData=JsonDecode::decode($this->client->post("/api/v2/groups",
+        $responseData=$this->client->Request("POST","/api/v2/groups",
             [
                 "json"=>[
                     "name"=>$companyFd->getName(),
                     "description"=>$companyFd->getDescription()
                 ]
             ]
-        ));
+        );
         return new GroupFd(
             $responseData["id"],
             $responseData["description"],

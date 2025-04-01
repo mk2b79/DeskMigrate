@@ -18,4 +18,11 @@ class GroupZd
         $this->description = $description;
         $this->name = $name;
     }
+    public static function fromArray(array $data): GroupZd{
+        return new GroupZd(
+            $data["id"],
+            $data["description"],
+            $data["name"]
+        );
+    }
 }

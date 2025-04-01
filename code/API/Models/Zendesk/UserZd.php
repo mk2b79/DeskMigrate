@@ -30,5 +30,13 @@ class UserZd
         $this->timeZone = $timeZone;
         $this->organizationId = $organizationId;
     }
-
+    public static function fromArray(array $data): UserZd{
+        return new UserZd(
+            $data["id"],
+            $data["name"],
+            $data["email"],
+            $data["time_zone"],
+            $data["organization_id"]
+        );
+    }
 }

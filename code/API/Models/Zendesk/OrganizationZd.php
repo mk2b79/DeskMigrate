@@ -17,4 +17,10 @@ class OrganizationZd
         $this->name = $name;
     }
 
+    public static function fromArray(array $data): OrganizationZd{
+        return new OrganizationZd(
+            $data["id"],
+            $data["name"]
+        );
+    }
 }

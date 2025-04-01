@@ -2,31 +2,36 @@
 
 namespace API\Services\Zendesk;
 
+use API\Models\Freshdesk\CompanyFd;
+use API\Models\Zendesk\FieldZd;
+use API\Models\Zendesk\GroupZd;
+use API\Models\Zendesk\OrganizationZd;
 use API\Models\Zendesk\TicketZd;
 use API\Models\Zendesk\UserZd;
-use API\Utilities\JsonDecode;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
+use API\Utilities\Client;
 
 class zTicketsServices
 {
     private Client $client;
     public function __construct(Client $client){ $this->client = $client; }
 
-    /**
-     * @throws GuzzleException
-     */
     public function fetchTicketsInclude():array{
         $tickets = [];
-
-        $userServices=new zUserServices($this->client);
-        $groupServices=new zGroupsServices($this->client);
-        $organizationServices=new zOrganizationServices($this->client);
 
         $page=1;
 
         do{
-            $data=JsonDecode::decode($this->client->get("/api/v2/tickets?page=$page"));
+            $data= $this->client->Request("GET","/api/v2/tickets",[
+                "query"=>[
+                    "page"=>$page,
+                    "include"=>"users,groups,organizations"
+                ]
+            ]);
+
+            $users=array_column($data['users'],null,"id");
+            $groups=array_column($data['groups'],null,"id");
+            $organizations=array_column($data['organizations'],null,"id");
+
             foreach($data['tickets'] as $rawTicket){
                 $tickets[] = new TicketZd(
                     $rawTicket["id"],
@@ -34,15 +39,23 @@ class zTicketsServices
                     $rawTicket["description"],
                     $rawTicket["status"],
                     $rawTicket["priority"],
-                    $userServices->fetchUserById($rawTicket["assignee_id"]),
-                    $userServices->fetchUserById($rawTicket["requester_id"]),
-                    $groupServices->fetchGroupById($rawTicket["group_id"]),
-                    $organizationServices->fetchOrganizationById($rawTicket["organization_id"]),
+                    UserZd::fromArray($users[$rawTicket["assignee_id"]]),
+                    UserZd::fromArray($users[$rawTicket["requester_id"]]),
+                    $rawTicket["group_id"] != null ? GroupZd::fromArray($groups[$rawTicket["group_id"]]) : null,
+                    $rawTicket["organization_id"] != null ? OrganizationZd::fromArray($organizations[$rawTicket["organization_id"]]) : null,
+                    self::ticketFields($rawTicket['custom_fields']),
                 );
             }
             $page++;
         }
         while($data['next_page']!=null);
         return $tickets;
+    }
+    private function ticketFields (array $ticketFields):array{
+        $fields=[];
+        foreach($ticketFields as $field){
+            $fields[] = FieldZd::fromArray($field);
+        }
+        return $fields;
     }
 }

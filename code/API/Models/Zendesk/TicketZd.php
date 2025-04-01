@@ -30,8 +30,19 @@ class TicketZd
     private ?GroupZd $group;
     #[MapTo(target:  TicketFd::class, property: "company")]
     private ?OrganizationZd $organization;
+    private array $customFields;
 
-    public function __construct($id,$subject, $description, $status, $priority,UserZd $agent,UserZd $contact, $group, $organization)
+    public function __construct(
+        $id,
+        $subject,
+        $description,
+        $status,
+        $priority,
+        UserZd $agent,
+        UserZd $contact,
+        ?GroupZd $group,
+        ?OrganizationZd $organization,
+        $customFields)
     {
         $this->id = $id;
         $this->subject = $subject;
@@ -42,6 +53,7 @@ class TicketZd
         $this->contact = $contact;
         $this->group = $group;
         $this->organization = $organization;
+        $this->customFields =$customFields;
     }
 
     public static function statusMapCallback(string $value):int
