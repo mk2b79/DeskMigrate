@@ -8,6 +8,7 @@ RUN docker-php-ext-install zip
 
 RUN curl https://getcomposer.org/installer > /tmp/composer_install
 RUN php /tmp/composer_install --install-dir=/bin --filename=composer
+RUN composer require jolicode/automapper
 
 RUN pecl install xdebug
 RUN docker-php-ext-enable xdebug
