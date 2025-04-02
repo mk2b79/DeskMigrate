@@ -20,11 +20,6 @@ class TicketFd
         return $this->id;
     }
 
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
-
     public function getDescription(): string
     {
         return $this->description;
@@ -40,29 +35,16 @@ class TicketFd
         return $this->priority;
     }
 
-    public function setPriority(int $priority): void
-    {
-        $this->priority = $priority;
-    }
 
     public function getAgent(): AgentFd
     {
         return $this->agent;
     }
 
-    public function setAgent(AgentFd $agent): void
-    {
-        $this->agent = $agent;
-    }
 
     public function getContact(): ContactFd
     {
         return $this->contact;
-    }
-
-    public function setContact(ContactFd $contact): void
-    {
-        $this->contact = $contact;
     }
 
     public function getGroup(): ?GroupFd
@@ -70,19 +52,9 @@ class TicketFd
         return $this->group;
     }
 
-    public function setGroup(?GroupFd $group): void
-    {
-        $this->group = $group;
-    }
-
     public function getCompany(): ?CompanyFd
     {
         return $this->company;
-    }
-
-    public function setCompany(?CompanyFd $company): void
-    {
-        $this->company = $company;
     }
 
     public function getSubject(): string
@@ -90,9 +62,8 @@ class TicketFd
         return $this->subject;
     }
 
-    public function setSubject(string $subject): void
+    public function getFields(): array
     {
-        $this->subject = $subject;
+        return $this->fields;
     }
-
 }

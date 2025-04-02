@@ -39,8 +39,7 @@ class fTicketsServices
                     "company_id"=> $company == null ? null : $company->getId(),
 	                "email"=>$contact->getEmail(),
 	                "priority"=> $ticket->getPriority(),
-	                "status"=>$ticket->getStatus(),
-	                "cc_emails"=> [$agent->getEmail()],
+	                "status"=>$ticket->getStatus()
                ]
            ]
        );
