@@ -1,5 +1,7 @@
 <?php
 
+use API\Models\Freshdesk\TicketFd;
+use API\Services\Freshdesk\fTicketsServices;
 use API\Services\Zendesk\zTicketsServices;
 use API\Utilities\Client;
 use AutoMapper\AutoMapper;
@@ -17,25 +19,21 @@ $zClient = new Client($zendeskUrl, $email, $token);
 $ticketServices= new zTicketsServices($zClient);
 $tickets= $ticketServices->fetchTicketsInclude();
 
-$fTicket=$mapper->map($tickets[0],\API\Models\Freshdesk\TicketFd::class);
 
 
 
-//$freshdeskUrl="https://relokia-helpdesk.freshdesk.com";
-//$freshdeskToken="Xbzgkvwt4xLhRAoRcwFd";
-//$freshdeskClient = new Client([
-//    'base_uri' => $freshdeskUrl,
-//    'auth' => ["$freshdeskToken",""],
-//    'headers' => ['Content-Type' => 'application/json']
-//]);
-//
-//$fTicketServices= new \API\Services\Freshdesk\fTicketsServices($freshdeskClient);
-//
-//foreach ($tickets as $ticketZd) {
-//    $fTicket=$mapper->map($ticketZd,\API\Models\Freshdesk\TicketFd::class);
-//    $fTicketServices->createTicketInclude($fTicket);
-//}
+$freshdeskTickets=[];
+foreach ($tickets as $ticketZd) {
+    $freshdeskTickets[] = $mapper->map($ticketZd, TicketFd::class);
+}
 
+
+$freshdeskUrl="https://relokia-helpdesk.freshdesk.com";
+$freshdeskToken="Xbzgkvwt4xLhRAoRcwFd";
+$fClient= new Client($freshdeskUrl, $freshdeskToken,"");
+
+$fTicketServices= new fTicketsServices($fClient);
+$fTicketServices->createTicketsInclude($freshdeskTickets);
 
 $test = '';
 

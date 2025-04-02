@@ -5,16 +5,17 @@ namespace API\Services\Freshdesk;
 use API\Models\Freshdesk\GroupFd;
 use API\Utilities\Client;
 
-
 class fGroupServices
 {
     private Client $client;
     public function __construct(Client $client){ $this->client = $client; }
 
     public function getOrGroupCompany(?GroupFd $group):?GroupFd {
+
         if($group === null){
             return null;
         }
+
         $data =$this->client->Request("GET","/api/v2/groups");
 
         $data= array_column($data, null, 'name');
@@ -27,12 +28,10 @@ class fGroupServices
                 $rawGroup["name"],
             );
         }
+
         return $this->createGroup($group);
     }
 
-    /**
-     * @throws GuzzleException
-     */
     private function createGroup(GroupFd $companyFd):GroupFd
     {
         $responseData=$this->client->Request("POST","/api/v2/groups",
@@ -43,10 +42,12 @@ class fGroupServices
                 ]
             ]
         );
+
         return new GroupFd(
             $responseData["id"],
             $responseData["description"],
             $responseData["name"]
         );
+
     }
 }
